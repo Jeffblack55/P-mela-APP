@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Gestão de Mensalidades - Pâmela Precinato</title>
+  <title>Gestão de Mensalidades & Sessões - Pâmela Precinato</title>
   <meta name="theme-color" content="#fdf2f8">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="PP Gestão">
+  <meta name="apple-mobile-web-app-title" content="Gestão Pâmela Precinato">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -17,7 +17,7 @@
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -69,50 +69,57 @@
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .card-glass {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+    }
   </style>
 </head>
-<body class="bg-surface-bg text-slate-800 min-h-screen pb-16 antialiased selection:bg-pink-200">
+<body class="bg-surface-bg text-slate-800 min-h-screen pb-20 antialiased selection:bg-pink-200">
 
 <div class="max-w-5xl mx-auto px-3.5 sm:px-6 pt-5 sm:pt-8 flex flex-col gap-4 sm:gap-6">
 
   <!-- Header -->
-  <header class="flex items-center justify-between border-b border-pink-200/80 pb-4 gap-3">
+  <header class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-pink-200/80 pb-4 gap-3">
     <div>
       <div class="flex items-center gap-2">
-        <h1 class="text-lg sm:text-2xl font-extrabold tracking-tight text-brand-950">Pâmela Precinato</h1>
+        <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-brand-950">Pâmela Precinato</h1>
+        <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-brand-100 text-brand-700 border border-brand-200 hidden sm:inline-block">Massoterapia & Pós-Operatório</span>
       </div>
-      <p class="text-xs text-brand-800/80 flex items-center gap-2 mt-0.5">
+      <p class="text-xs text-brand-800/85 flex items-center gap-2 mt-0.5">
         <span>Controle Financeiro & Gestão de Sessões</span>
-        <span class="inline-block w-1 h-1 rounded-full bg-pink-300"></span>
-        <span id="activeCounterTag" class="text-brand-600 font-bold uppercase tracking-wider text-[11px]">0 PACIENTES</span>
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+        <span id="activeCounterTag" class="text-brand-600 font-extrabold uppercase tracking-wider text-[11px]">0 PACIENTES</span>
       </p>
     </div>
   </header>
 
   <!-- Mês & Ferramentas -->
-  <section class="bg-surface-card border border-surface-border rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+  <section class="card-glass border border-surface-border rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-3">
     <div class="flex items-center justify-between sm:justify-start gap-2">
       <div class="inline-flex items-center bg-surface-input border border-surface-border rounded-xl p-1 shadow-inner">
         <button type="button" onclick="changeMonth(-1)" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg hover:bg-surface-hover text-brand-800 font-bold transition-colors" title="Mês anterior">◀</button>
         <input type="month" id="monthPicker" onchange="onMonthChange(this.value)" class="bg-transparent text-sm font-bold text-brand-950 px-2 focus:outline-none cursor-pointer">
         <button type="button" onclick="changeMonth(1)" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg hover:bg-surface-hover text-brand-800 font-bold transition-colors" title="Próximo mês">▶</button>
       </div>
-      <button onclick="goToCurrentMonth()" class="text-xs font-bold px-3 py-2 bg-surface-input hover:bg-surface-hover text-brand-700 border border-surface-border rounded-xl transition-colors">Hoje</button>
+      <button onclick="goToCurrentMonth()" class="text-xs font-bold px-3.5 py-2.5 bg-surface-input hover:bg-surface-hover text-brand-700 border border-surface-border rounded-xl transition-colors">
+        Hoje
+      </button>
     </div>
 
-    <!-- Ações de Backup / Limpeza -->
-    <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
-      <button onclick="exportData()" class="flex-1 sm:flex-none text-xs font-semibold px-3 py-2 bg-surface-input hover:bg-surface-hover border border-surface-border rounded-xl text-brand-900 transition-colors inline-flex items-center gap-1.5 whitespace-nowrap">
-        <span>📊</span><span>CSV</span>
+    <!-- Ações de Backup / Limpeza / Exportação -->
+    <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
+      <button onclick="exportData()" class="flex-1 sm:flex-none text-xs font-semibold px-3 py-2 bg-surface-input hover:bg-surface-hover border border-surface-border rounded-xl text-brand-900 transition-colors inline-flex items-center justify-center gap-1.5 whitespace-nowrap shadow-sm">
+        <span>📊</span><span>Exportar CSV</span>
       </button>
-      <button onclick="backupDatabase()" class="flex-1 sm:flex-none text-xs font-semibold px-3 py-2 bg-surface-input hover:bg-surface-hover border border-surface-border rounded-xl text-brand-900 transition-colors inline-flex items-center gap-1.5 whitespace-nowrap">
-        <span>💾</span><span>Backup</span>
+      <button onclick="backupDatabase()" class="flex-1 sm:flex-none text-xs font-semibold px-3 py-2 bg-surface-input hover:bg-surface-hover border border-surface-border rounded-xl text-brand-900 transition-colors inline-flex items-center justify-center gap-1.5 whitespace-nowrap shadow-sm">
+        <span>💾</span><span>Backup JSON</span>
       </button>
-      <button onclick="document.getElementById('restoreFileInput').click()" class="flex-1 sm:flex-none text-xs font-semibold px-3 py-2 bg-surface-input hover:bg-surface-hover border border-surface-border rounded-xl text-brand-900 transition-colors inline-flex items-center gap-1.5 whitespace-nowrap">
+      <button onclick="document.getElementById('restoreFileInput').click()" class="flex-1 sm:flex-none text-xs font-semibold px-3 py-2 bg-surface-input hover:bg-surface-hover border border-surface-border rounded-xl text-brand-900 transition-colors inline-flex items-center justify-center gap-1.5 whitespace-nowrap shadow-sm">
         <span>📂</span><span>Restaurar</span>
       </button>
       <input type="file" id="restoreFileInput" accept=".json" class="hidden" onchange="restoreDatabase(event)">
-      <button onclick="openClearModal()" class="flex-1 sm:flex-none text-xs font-semibold px-3 py-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 rounded-xl transition-colors inline-flex items-center gap-1.5 whitespace-nowrap" title="Limpar mês atual">
+      <button onclick="openClearModal()" class="flex-1 sm:flex-none text-xs font-semibold px-3 py-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 rounded-xl transition-colors inline-flex items-center justify-center gap-1.5 whitespace-nowrap shadow-sm" title="Limpar mês atual">
         <span>🗑️</span><span>Limpar Mês</span>
       </button>
     </div>
@@ -120,76 +127,84 @@
 
   <!-- Painel de Indicadores (KPIs) -->
   <section class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5">
-    <div class="bg-surface-card border border-surface-border rounded-2xl p-3.5 sm:p-4 shadow-sm flex flex-col justify-between">
+    <div class="card-glass border border-surface-border rounded-2xl p-4 shadow-sm flex flex-col justify-between">
       <span class="text-[11px] font-bold text-brand-800 tracking-wider uppercase">Total Pacientes</span>
-      <div class="mt-2 flex items-baseline justify-between">
+      <div class="mt-2 flex items-baseline justify-between flex-wrap gap-1">
         <span id="kpiTotalStudents" class="text-2xl sm:text-3xl font-extrabold text-brand-950">0</span>
-        <span id="kpiPaidPercent" class="text-xs font-bold text-brand-600 bg-pink-100 px-2 py-0.5 rounded-full">0% pago</span>
+        <span id="kpiPaidPercent" class="text-xs font-bold text-brand-700 bg-pink-100 px-2 py-0.5 rounded-full border border-pink-200">0% pago</span>
       </div>
     </div>
 
-    <div class="bg-surface-card border border-surface-border rounded-2xl p-3.5 sm:p-4 shadow-sm flex flex-col justify-between">
+    <div class="card-glass border border-surface-border rounded-2xl p-4 shadow-sm flex flex-col justify-between">
       <span class="text-[11px] font-bold text-brand-800 tracking-wider uppercase">Faturamento Previsto</span>
       <div class="mt-2">
         <span id="kpiTotalExpected" class="text-xl sm:text-2xl font-extrabold text-slate-800">R$ 0,00</span>
       </div>
     </div>
 
-    <div class="bg-white border border-emerald-200 bg-gradient-to-b from-emerald-50/70 to-transparent rounded-2xl p-3.5 sm:p-4 shadow-sm flex flex-col justify-between">
-      <span class="text-[11px] font-bold text-emerald-700 tracking-wider uppercase">● Recebido</span>
+    <div class="bg-white border border-emerald-200 bg-gradient-to-b from-emerald-50/70 to-transparent rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] font-bold text-emerald-800 tracking-wider uppercase">● Total Recebido</span>
+        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">Entradas</span>
+      </div>
       <div class="mt-2">
         <span id="kpiTotalPaid" class="text-xl sm:text-2xl font-extrabold text-emerald-700">R$ 0,00</span>
       </div>
     </div>
 
-    <div class="bg-white border border-amber-200 bg-gradient-to-b from-amber-50/70 to-transparent rounded-2xl p-3.5 sm:p-4 shadow-sm flex flex-col justify-between">
-      <span class="text-[11px] font-bold text-amber-700 tracking-wider uppercase">● Pendente</span>
+    <div class="bg-white border border-amber-200 bg-gradient-to-b from-amber-50/70 to-transparent rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] font-bold text-amber-800 tracking-wider uppercase">● Total Pendente</span>
+        <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">A Receber</span>
+      </div>
       <div class="mt-2">
         <span id="kpiTotalPending" class="text-xl sm:text-2xl font-extrabold text-amber-700">R$ 0,00</span>
       </div>
     </div>
   </section>
 
-  <!-- Sessões de Hoje -->
-  <section class="bg-surface-card border border-surface-border rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col gap-3">
+  <!-- Sessões de Hoje & Confirmação Rápida -->
+  <section class="card-glass border border-surface-border rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col gap-3">
     <div class="flex items-center justify-between flex-wrap gap-2">
       <div class="flex items-center gap-2">
-        <span class="text-base">📆</span>
+        <span class="text-lg">📆</span>
         <h2 class="text-sm font-bold uppercase tracking-wider text-brand-950">Sessões de Hoje</h2>
       </div>
-      <span id="todayBanner" class="hidden text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-300 px-2.5 py-1 rounded-full animate-pulse"></span>
+      <span id="todayBanner" class="hidden text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full animate-pulse"></span>
     </div>
+    
     <div id="todaySessions" class="flex flex-col gap-2"></div>
-    <p class="text-[11px] text-slate-500">
-      O aplicativo verifica sessões e alerta quando faltar 1 hora para o atendimento. Clique em <strong>“Pedir confirmação”</strong> para disparar a mensagem pronta via WhatsApp.
-    </p>
+    <div class="flex items-center gap-2 text-[11px] text-slate-500 bg-pink-50/60 p-2.5 rounded-xl border border-pink-100">
+      <span class="text-base">💡</span>
+      <span>O sistema verifica sessões e alerta com destaque quando estiver no horário de confirmação. Clique em <strong>“Pedir confirmação”</strong> para disparar a mensagem direta no WhatsApp.</span>
+    </div>
   </section>
 
   <!-- Cadastro de Novo Paciente -->
-  <section class="bg-surface-card border border-surface-border rounded-2xl p-4 sm:p-5 shadow-sm">
+  <section class="card-glass border border-surface-border rounded-2xl p-4 sm:p-5 shadow-sm">
     <h2 class="text-sm font-bold uppercase tracking-wider text-brand-950 mb-3.5 flex items-center gap-2">
-      <span>✨</span><span>Cadastrar Novo Paciente</span>
+      <span>Cadastrar Novo Paciente</span>
     </h2>
     <form id="studentForm" onsubmit="handleAddStudent(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
       <div class="sm:col-span-4">
         <label class="block text-xs font-semibold text-slate-600 mb-1">Nome do Paciente *</label>
-        <input type="text" id="inputName" placeholder="Ex: Maria Eduarda" required class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-colors">
+        <input type="text" id="inputName" placeholder="Ex: Camila Ferreira" required class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-all shadow-inner">
       </div>
       <div class="sm:col-span-3">
         <label class="block text-xs font-semibold text-slate-600 mb-1">WhatsApp (DDD + Número)</label>
-        <input type="tel" id="inputPhone" placeholder="Ex: 67999998888" oninput="formatPhoneInput(this)" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-colors">
+        <input type="tel" id="inputPhone" placeholder="Ex: (67) 99999-8888" oninput="formatPhoneInput(this)" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-all shadow-inner">
       </div>
       <div class="sm:col-span-3">
         <label class="block text-xs font-semibold text-slate-600 mb-1">Data de Vencimento *</label>
-        <input type="date" id="inputDueDate" required class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-colors">
+        <input type="date" id="inputDueDate" required class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-all shadow-inner">
       </div>
       <div class="sm:col-span-2">
         <label class="block text-xs font-semibold text-slate-600 mb-1">Valor (R$) *</label>
-        <input type="number" id="inputValue" step="0.01" min="0" placeholder="150.00" required class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-colors">
+        <input type="number" id="inputValue" step="0.01" min="0" placeholder="180.00" required class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-all shadow-inner">
       </div>
       <div class="sm:col-span-12 flex justify-end mt-1">
-        <button type="submit" class="w-full sm:w-auto px-6 py-2.5 bg-brand-500 hover:bg-brand-600 active:scale-95 text-white font-bold text-sm rounded-xl shadow-md shadow-pink-300 transition-all">
-          + Cadastrar Paciente
+        <button type="submit" class="w-full sm:w-auto px-6 py-2.5 bg-brand-500 hover:bg-brand-600 active:scale-95 text-white font-bold text-sm rounded-xl shadow-md shadow-pink-300 transition-all flex items-center justify-center gap-2">
+          <span>+</span><span>Cadastrar Paciente</span>
         </button>
       </div>
     </form>
@@ -223,7 +238,7 @@
   </section>
 
   <!-- Gráfico Anual de Arrecadação -->
-  <section class="bg-surface-card border border-surface-border rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col gap-4">
+  <section class="card-glass border border-surface-border rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col gap-4">
     <div class="flex items-center justify-between flex-wrap gap-2">
       <div>
         <h3 class="text-sm font-bold text-brand-950 flex items-center gap-1.5">
@@ -233,13 +248,13 @@
       </div>
       <div class="flex items-center gap-2">
         <label for="chartYearSelect" class="text-xs text-slate-600 font-semibold">Ano:</label>
-        <select id="chartYearSelect" onchange="onChartYearChange(this.value)" class="bg-surface-input border border-surface-border text-xs font-bold px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-brand-500"></select>
+        <select id="chartYearSelect" onchange="onChartYearChange(this.value)" class="bg-surface-input border border-surface-border text-xs font-bold px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-brand-500 shadow-inner"></select>
       </div>
     </div>
 
-    <div id="recordMonthBox" class="hidden bg-pink-50 border border-pink-200 rounded-xl p-3 flex items-center justify-between text-xs text-brand-900">
-      <span>🏆 <strong>Mês Recorde:</strong> <span id="recordMonthText">--</span></span>
-      <span class="text-[11px] bg-pink-200 px-2.5 py-0.5 rounded-full font-bold text-brand-950">Maior Faturamento</span>
+    <div id="recordMonthBox" class="hidden bg-gradient-to-r from-pink-50 to-pink-100/60 border border-pink-200 rounded-xl p-3 flex items-center justify-between text-xs text-brand-900">
+      <span>🏆 <strong>Mês Recorde:</strong> <span id="recordMonthText" class="font-bold">--</span></span>
+      <span class="text-[11px] bg-brand-200 px-2.5 py-0.5 rounded-full font-bold text-brand-950 shadow-sm">Maior Faturamento</span>
     </div>
 
     <div class="relative w-full h-64 sm:h-72">
@@ -249,30 +264,30 @@
 
   <!-- Footer -->
   <footer class="text-center text-brand-900/60 text-[11px] py-4 border-t border-pink-200/80 flex flex-col sm:flex-row items-center justify-between gap-2">
-    <span>Pâmela Precinato • Gestão Financeira Profissional</span>
+    <span>Pâmela Precinato • Gestão Financeira & Atendimento Profissional</span>
     <span>Dados salvos localmente neste navegador. Lembre-se de gerar backups periódicos.</span>
   </footer>
 
 </div>
 
-<!-- Modal Genérico de Confirmação -->
+<!-- Modal Genérico de Confirmação & Alertas -->
 <div id="confirmModal" class="fixed inset-0 bg-brand-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
   <div class="bg-surface-card border border-surface-border rounded-2xl max-w-sm w-full p-5 shadow-2xl flex flex-col gap-4 fade-in">
     <h3 id="confirmTitle" class="text-sm font-bold text-brand-950">Confirmação</h3>
     <p id="confirmMsg" class="text-xs text-slate-600 leading-relaxed"></p>
     <div class="flex justify-end gap-2 pt-2">
       <button onclick="closeConfirmModal()" class="px-3.5 py-2 text-xs text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors">Cancelar</button>
-      <button id="confirmActionBtn" class="px-4 py-2 text-xs font-bold rounded-xl transition-transform active:scale-95">Confirmar</button>
+      <button id="confirmActionBtn" class="px-4 py-2 text-xs font-bold rounded-xl transition-transform active:scale-95 shadow">Confirmar</button>
     </div>
   </div>
 </div>
 
-<!-- Modal de Agendamento de Sessão (Google Agenda) -->
+<!-- Modal de Agendamento de Sessão -->
 <div id="sessionModal" class="fixed inset-0 bg-brand-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
   <div class="bg-surface-card border border-surface-border rounded-2xl max-w-md w-full p-5 shadow-2xl flex flex-col gap-3.5 max-h-[92vh] overflow-y-auto fade-in">
     <div class="flex items-center justify-between border-b border-pink-100 pb-2">
-      <h3 id="sessTitle" class="text-sm font-bold text-brand-950">Marcar sessão</h3>
-      <button onclick="closeSessionModal()" class="text-slate-400 hover:text-slate-600 text-sm">✕</button>
+      <h3 id="sessTitle" class="text-sm font-bold text-brand-950">Agendar Sessão</h3>
+      <button onclick="closeSessionModal()" class="text-slate-400 hover:text-slate-600 text-sm font-bold">✕</button>
     </div>
 
     <!-- Tipo de agendamento -->
@@ -283,21 +298,21 @@
 
     <div>
       <label class="block text-xs font-semibold text-slate-600 mb-1">Procedimento / Massagem</label>
-      <input type="text" id="sessMassage" placeholder="Ex: Drenagem linfática, Relaxante, Modeladora..." class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
+      <input type="text" id="sessMassage" placeholder="Ex: Drenagem linfática, Relaxante, Modeladora..." class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500 shadow-inner">
     </div>
 
     <div class="grid grid-cols-2 gap-3">
       <div>
         <label class="block text-xs font-semibold text-slate-600 mb-1">Data</label>
-        <input type="date" id="sessDate" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
+        <input type="date" id="sessDate" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500 shadow-inner">
       </div>
       <div>
         <label class="block text-xs font-semibold text-slate-600 mb-1">Horário</label>
-        <input type="time" id="sessTime" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
+        <input type="time" id="sessTime" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500 shadow-inner">
       </div>
       <div>
         <label class="block text-xs font-semibold text-slate-600 mb-1">Duração</label>
-        <select id="sessDur" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
+        <select id="sessDur" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500 shadow-inner">
           <option value="30">30 min</option>
           <option value="45">45 min</option>
           <option value="50" selected>50 min</option>
@@ -308,7 +323,7 @@
       </div>
       <div id="sessRepBox" class="hidden">
         <label class="block text-xs font-semibold text-slate-600 mb-1">Repetir</label>
-        <select id="sessRep" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
+        <select id="sessRep" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500 shadow-inner">
           <option value="none">Não repetir</option>
           <option value="WEEKLY" selected>Toda semana</option>
           <option value="MONTHLY">Todo mês</option>
@@ -318,22 +333,22 @@
 
     <div id="sessCntBox" class="hidden">
       <label class="block text-xs font-semibold text-slate-600 mb-1">Quantidade de sessões do pacote</label>
-      <input type="number" id="sessCnt" min="2" max="60" value="4" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
+      <input type="number" id="sessCnt" min="2" max="60" value="5" class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500 shadow-inner">
     </div>
 
     <div>
       <label class="block text-xs font-semibold text-slate-600 mb-1">Observações (opcional)</label>
-      <input type="text" id="sessNotes" placeholder="Ex: Paciente com dor lombar..." class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500">
+      <input type="text" id="sessNotes" placeholder="Ex: Paciente com retenção de líquido ou foco lombar..." class="w-full bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500 shadow-inner">
     </div>
 
-    <p class="text-[11px] text-slate-500">
-      Ao confirmar, o Google Agenda será aberto com todos os detalhes e lembretes pré-preenchidos para salvar.
+    <p class="text-[11px] text-slate-500 bg-pink-50 p-2.5 rounded-xl border border-pink-100">
+      A sessão será cadastrada internamente no app e exibida no painel diário para envio de confirmação via WhatsApp.
     </p>
 
     <div class="flex justify-end gap-2 pt-2 border-t border-pink-100">
       <button onclick="closeSessionModal()" class="px-3.5 py-2 text-xs text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors">Cancelar</button>
-      <button onclick="scheduleSession()" class="px-4 py-2 text-xs font-bold rounded-xl bg-brand-500 hover:bg-brand-600 text-white shadow transition-all flex items-center gap-1.5">
-        <span>📅</span><span>Abrir no Google Agenda</span>
+      <button onclick="scheduleSession()" class="px-4 py-2 text-xs font-bold rounded-xl bg-brand-500 hover:bg-brand-600 text-white shadow-md shadow-pink-300 transition-all flex items-center gap-1.5 active:scale-95">
+        <span>💾</span><span>Salvar Sessão</span>
       </button>
     </div>
   </div>
@@ -360,9 +375,9 @@
   </div>
 </div>
 
-<!-- Botão Flutuante de Retorno Rápido ao Início -->
+<!-- Botão Flutuante de Retorno Rápido ao Topo -->
 <div id="floatingHomeBtn" class="fixed bottom-4 right-4 z-40">
-  <button onclick="returnToMainView()" class="flex items-center gap-2 px-4 py-2.5 bg-brand-500/95 hover:bg-brand-600 text-white font-bold text-xs rounded-full shadow-lg shadow-pink-400/40 border border-white/20 active:scale-95 transition-all backdrop-blur-sm" title="Voltar ao Topo e Início">
+  <button onclick="returnToMainView()" class="flex items-center gap-2 px-4 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs rounded-full shadow-lg shadow-pink-400/40 border border-white/20 active:scale-95 transition-all backdrop-blur-sm" title="Voltar ao Topo e Início">
     <span>🏠</span>
     <span>Início</span>
   </button>
@@ -370,7 +385,8 @@
 
 <script>
 /**
- * Gestão Financeira e Pacientes - Pâmela Precinato
+ * Gestão Financeira & Pacientes - Pâmela Precinato
+ * Single-file application
  */
 const STORAGE_KEY = 'mensalidades_alunos_app_v2';
 
@@ -383,7 +399,7 @@ let chartInstance = null;
 let sessionStudentId = null;
 let sessType = 'avulsa';
 
-// Utilitários de sanitização
+// Utilitários de sanitização e segurança
 function cleanStr(v, max) {
   return typeof v === 'string' ? v.slice(0, max) : '';
 }
@@ -504,7 +520,7 @@ function saveData() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
   } catch (e) {
-    console.error(e);
+    console.error('Erro ao salvar no localStorage:', e);
   }
 }
 
@@ -769,7 +785,7 @@ function renderList() {
     const nameInput = document.createElement('input');
     nameInput.type = 'text';
     nameInput.value = s.name;
-    nameInput.title = 'Clique para editar o nome';
+    nameInput.title = 'Clique para editar o nome do paciente';
     nameInput.className = 'bg-transparent text-sm sm:text-base font-bold text-slate-800 focus:outline-none focus:border-b-2 focus:border-brand-500 w-full truncate';
     nameInput.addEventListener('change', e => updateStudentName(s.id, e.target.value));
 
@@ -784,7 +800,7 @@ function renderList() {
       const last = s.sessions[s.sessions.length - 1];
       const repText = last.rep === 'WEEKLY' ? ' (semanal)' : last.rep === 'MONTHLY' ? ' (mensal)' : '';
       const sessionBadge = document.createElement('div');
-      sessionBadge.className = 'mt-1 text-xs text-brand-700 font-semibold';
+      sessionBadge.className = 'mt-1.5 text-xs text-brand-800 font-semibold bg-brand-50 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-pink-200';
       sessionBadge.textContent = `🗓️ ${last.massagem ? last.massagem + ' • ' : ''}${last.tipo === 'pacote' ? 'Pacote' : 'Avulsa'} • ${formatDate(last.date)} às ${last.time}${repText}`;
       info.append(nameInput, meta, sessionBadge);
     } else {
@@ -795,7 +811,7 @@ function renderList() {
       info.appendChild(buildPkgElement(s));
     }
 
-    // Ações
+    // Ações do paciente
     const act = document.createElement('div');
     act.className = 'flex items-center justify-between sm:justify-end gap-2 sm:gap-3 border-t sm:border-t-0 pt-2.5 sm:pt-0 border-pink-100';
 
@@ -803,39 +819,39 @@ function renderList() {
     valInput.type = 'text';
     valInput.value = formatCurrency(s.value);
     valInput.title = 'Clique para alterar o valor';
-    valInput.className = 'w-24 sm:w-28 text-right bg-surface-input border border-surface-border text-xs sm:text-sm font-bold text-slate-800 px-2.5 py-1.5 rounded-xl focus:outline-none focus:border-brand-500';
+    valInput.className = 'w-24 sm:w-28 text-right bg-surface-input border border-surface-border text-xs sm:text-sm font-bold text-slate-800 px-2.5 py-1.5 rounded-xl focus:outline-none focus:border-brand-500 shadow-inner';
     valInput.addEventListener('focus', e => e.target.value = s.value);
     valInput.addEventListener('blur', e => updateStudentValue(s.id, e.target.value));
 
     const statusBtn = document.createElement('button');
     statusBtn.type = 'button';
     statusBtn.className = s.paid
-      ? 'px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 hover:bg-emerald-200 transition-colors'
-      : 'px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200 transition-colors';
+      ? 'px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 hover:bg-emerald-200 transition-colors shadow-sm'
+      : 'px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200 transition-colors shadow-sm';
     statusBtn.textContent = s.paid ? '✓ Pago' : '⏳ Pendente';
     statusBtn.onclick = () => toggleStatus(s.id);
 
     const actionIcons = document.createElement('div');
-    actionIcons.className = 'flex items-center gap-1';
+    actionIcons.className = 'flex items-center gap-1.5';
 
     const calBtn = document.createElement('button');
     calBtn.type = 'button';
-    calBtn.title = 'Marcar sessão no Google Agenda';
-    calBtn.className = 'w-8 h-8 flex items-center justify-center rounded-xl bg-surface-input border border-surface-border hover:bg-surface-hover text-sm transition-colors';
+    calBtn.title = 'Agendar sessão';
+    calBtn.className = 'w-8 h-8 flex items-center justify-center rounded-xl bg-surface-input border border-surface-border hover:bg-surface-hover text-sm transition-colors shadow-sm';
     calBtn.textContent = '📅';
     calBtn.onclick = () => openSessionModal(s.id);
 
     const waBtn = document.createElement('button');
     waBtn.type = 'button';
     waBtn.title = 'Confirmar sessão pelo WhatsApp';
-    waBtn.className = 'w-8 h-8 flex items-center justify-center rounded-xl bg-surface-input border border-surface-border hover:bg-surface-hover text-sm transition-colors';
+    waBtn.className = 'w-8 h-8 flex items-center justify-center rounded-xl bg-surface-input border border-surface-border hover:bg-surface-hover text-sm transition-colors shadow-sm';
     waBtn.textContent = '💬';
     waBtn.onclick = () => sendWhatsApp(s.id);
 
     const delBtn = document.createElement('button');
     delBtn.type = 'button';
     delBtn.title = 'Excluir Paciente';
-    delBtn.className = 'w-8 h-8 flex items-center justify-center rounded-xl bg-surface-input border border-surface-border hover:bg-rose-50 hover:text-rose-600 text-sm transition-colors';
+    delBtn.className = 'w-8 h-8 flex items-center justify-center rounded-xl bg-surface-input border border-surface-border hover:bg-rose-50 hover:text-rose-600 text-sm transition-colors shadow-sm';
     delBtn.textContent = '🗑️';
     delBtn.onclick = () => deleteStudent(s.id);
 
@@ -866,7 +882,7 @@ function buildPkgElement(s) {
   const row = document.createElement('div');
   row.className = 'flex items-center gap-1.5 mt-2 flex-wrap';
 
-  const baseBtnClass = 'px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors ';
+  const baseBtnClass = 'px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors shadow-sm ';
 
   const minusBtn = document.createElement('button');
   minusBtn.type = 'button';
@@ -890,7 +906,7 @@ function buildPkgElement(s) {
   totalInput.type = 'number';
   totalInput.min = '1';
   totalInput.value = p.total;
-  totalInput.className = 'w-12 text-center bg-white border border-pink-200 rounded-lg text-xs font-bold py-1 focus:outline-none focus:border-brand-500';
+  totalInput.className = 'w-12 text-center bg-white border border-pink-200 rounded-lg text-xs font-bold py-1 focus:outline-none focus:border-brand-500 shadow-inner';
   totalInput.addEventListener('change', e => pkgSetTotal(s.id, e.target.value));
   totalLabel.appendChild(totalInput);
 
@@ -1030,23 +1046,8 @@ function scheduleSession() {
   const notes = document.getElementById('sessNotes').value.trim();
   const massagem = document.getElementById('sessMassage').value.trim();
 
-  const start = new Date(`${date}T${time}`);
-  const end = new Date(start.getTime() + dur * 60000);
-
-  const p = new URLSearchParams({
-    action: 'TEMPLATE',
-    text: `${massagem || 'Sessão'}${sessType === 'pacote' ? ' (Pacote)' : ''} - ${s.name}`,
-    dates: `${fmtLocal(start)}/${fmtLocal(end)}`,
-    details: notes || `Sessão de massagem com ${s.name} (Pâmela Precinato)`,
-    ctz: 'America/Campo_Grande'
-  });
-
-  if (rep !== 'none') {
-    p.set('recur', `RRULE:FREQ=${rep};COUNT=${cnt}`);
-  }
-
   s.sessions = s.sessions || [];
-  s.sessions.push({ date, time, dur, rep, cnt, tipo: sessType, massagem });
+  s.sessions.push({ date, time, dur, rep, cnt, tipo: sessType, massagem, notes });
 
   if (sessType === 'pacote') {
     if (!s.pkg || s.pkg.used >= s.pkg.total) {
@@ -1061,9 +1062,13 @@ function scheduleSession() {
   renderList();
   renderToday();
 
-  // Abre Google Agenda e exibe modal facilitador de retorno ao app
-  window.open('https://calendar.google.com/calendar/render?' + p.toString(), '_blank', 'noopener,noreferrer');
-  showExternalReturnFeedback('calendar', `Você abriu o Google Agenda para agendar com <strong>${esc(s.name)}</strong>.`);
+  showConfirmModal({
+    title: 'Sessão Agendada com Sucesso!',
+    message: `A sessão de ${massagem || 'atendimento'} para ${s.name} foi salva no sistema para o dia ${formatDate(date)} às ${time}.`,
+    confirmText: 'OK',
+    btnClass: 'bg-brand-500 text-white',
+    onConfirm: () => {}
+  });
 }
 
 function showExternalReturnFeedback(type, customText) {
@@ -1076,12 +1081,7 @@ function showExternalReturnFeedback(type, customText) {
     icon.innerHTML = '💬';
     icon.className = 'w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl shadow-inner';
     title.textContent = 'Mensagem de WhatsApp aberta!';
-    msg.innerHTML = customText || 'O WhatsApp foi aberto para enviar a mensagem ao paciente. Quando terminar, volte aqui para continuar gerenciando.';
-  } else if (type === 'calendar') {
-    icon.innerHTML = '📅';
-    icon.className = 'w-14 h-14 rounded-full bg-pink-100 text-pink-700 flex items-center justify-center text-2xl shadow-inner';
-    title.textContent = 'Google Agenda Aberto!';
-    msg.innerHTML = customText || 'O evento foi aberto no seu Google Agenda. Após salvar por lá, toque no botão abaixo para retornar à tela inicial.';
+    msg.innerHTML = customText || 'O WhatsApp foi aberto para enviar a confirmação. Ao concluir no celular ou web, retorne ao painel principal.';
   }
 
   modal.classList.remove('hidden');
@@ -1096,13 +1096,12 @@ function returnToMainView() {
   closeSessionModal();
   closeConfirmModal();
   
-  // Limpa busca e redefine filtro para 'all' para retornar à visualização padrão completa
+  // Limpa busca e redefine filtro para 'all' para visualização completa
   searchQuery = '';
   const searchEl = document.getElementById('searchInput');
   if (searchEl) searchEl.value = '';
   setFilter('all');
 
-  // Rola suavemente até o topo da tela
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1187,7 +1186,7 @@ function renderToday() {
       }
 
       const hasPhone = !!s.phone;
-      const btnCls = inWindow && !sent ? 'bg-brand-500 text-white border-brand-500' : 'bg-surface-input text-brand-900 border-surface-border hover:bg-surface-hover';
+      const btnCls = inWindow && !sent ? 'bg-brand-500 text-white border-brand-500 hover:bg-brand-600 shadow-sm' : 'bg-surface-input text-brand-900 border-surface-border hover:bg-surface-hover shadow-sm';
       const btn = past ? '' : hasPhone
         ? `<button onclick="sendConfirm('${s.id}','${o.time}')" class="px-3 py-1.5 rounded-xl text-xs font-bold border transition-colors ${btnCls}">💬 ${sent ? 'Reenviar' : 'Pedir confirmação'}</button>`
         : '<span class="text-[11px] text-slate-400">Sem telefone</span>';
@@ -1196,7 +1195,7 @@ function renderToday() {
         <div class="fade-in flex items-center justify-between gap-3 border ${cls} rounded-xl p-3 shadow-sm">
           <div class="min-w-0">
             <div class="text-sm font-bold text-slate-800 truncate">
-              <span class="text-brand-600">${o.time}</span> • ${esc(s.name)}
+              <span class="text-brand-600 font-extrabold">${o.time}</span> • ${esc(s.name)}
             </div>
             <div class="text-xs text-slate-500 truncate">${o.massagem ? esc(o.massagem) + ' • ' : ''}${o.tipo === 'pacote' ? 'Pacote' : 'Avulsa'}</div>
             <div class="mt-0.5">${chip}</div>
@@ -1215,7 +1214,7 @@ function renderToday() {
     bn.classList.add('hidden');
   }
 
-  document.title = (due ? `(${due}) ` : '') + 'Gestão de Mensalidades - Pâmela Precinato';
+  document.title = (due ? `(${due}) ` : '') + 'Gestão de Mensalidades & Sessões - Pâmela Precinato';
 }
 
 function nextSessionInfo(s) {
@@ -1373,7 +1372,7 @@ function renderChart() {
         {
           label: 'Pendente (R$)',
           data: pend,
-          backgroundColor: 'rgba(245, 158, 11, 0.5)',
+          backgroundColor: 'rgba(245, 158, 11, 0.45)',
           borderColor: '#f59e0b',
           borderWidth: 1,
           borderRadius: 6
@@ -1467,7 +1466,7 @@ function restoreDatabase(e) {
   if (file.size > 5 * 1024 * 1024) {
     showConfirmModal({
       title: 'Arquivo Inválido',
-      message: 'O arquivo selecionado excede o limite máximo permitido.',
+      message: 'O arquivo selecionado excede o limite máximo permitido (5MB).',
       confirmText: 'Ok',
       btnClass: 'bg-rose-600 text-white',
       onConfirm: () => {}
